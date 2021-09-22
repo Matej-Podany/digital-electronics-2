@@ -6,7 +6,6 @@
 
 1. List N.1
 2. List N.2
-..3. List 
-4. List N.3
+3. List N.3
 
 
