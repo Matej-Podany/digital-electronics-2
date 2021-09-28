@@ -20,7 +20,8 @@
  * directives. This is a common mistake.
  */
 #define LED_GREEN   PB5 // AVR pin where green LED is connected
-#define SHORT_DELAY 100 // Delay in milliseconds
+#define SHORT_DELAY 200 // Delay in milliseconds
+#define SHORT_DELAY2 1000 // Delay in milliseconds
 #ifndef F_CPU           // Preprocessor directive allows for conditional
                         // compilation. The #ifndef means "if not defined".
 # define F_CPU 16000000 // CPU frequency in Hz required for delay
@@ -52,12 +53,37 @@ int main(void)
     // Infinite loop
     while (1)
     {
-        // Pause several milliseconds
+        // Invert LED in Data Register   Rozsvítí se dioda
+        // PORTB = PORTB xor 0010 0000
+        PORTB = PORTB | (1<<LED_GREEN);
+		
+		// Pause several milliseconds    Svítí dioda po 200 ms
         _delay_ms(SHORT_DELAY);
 
-        // Invert LED in Data Register
+        // Invert LED in Data Register  Zhasíná se dioda
         // PORTB = PORTB xor 0010 0000
-        PORTB = PORTB ^ (1<<LED_GREEN);
+        PORTB = PORTB & ~(1<<LED_GREEN);
+		
+		
+		// Pause several milliseconds   Je zhasnutá po 1 s
+		_delay_ms(SHORT_DELAY2);
+		
+		// Invert LED in Data Register  Rozsvítí se dioda
+		// PORTB = PORTB xor 0010 0000
+		PORTB = PORTB | (1<<LED_GREEN);
+		
+		// Pause several milliseconds  Svítí po 1 s
+		_delay_ms(SHORT_DELAY2);
+
+		// Invert LED in Data Register  Zhasíná se dioda
+		// PORTB = PORTB xor 0010 0000
+		PORTB = PORTB & ~(1<<LED_GREEN);
+		
+		
+		// Pause several milliseconds  Je zhasnutá po 200 ms
+		_delay_ms(SHORT_DELAY2);
+		
+		
     }
 
     // Will never reach this
