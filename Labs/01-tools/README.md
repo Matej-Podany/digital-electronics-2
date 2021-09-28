@@ -1,4 +1,4 @@
-# Lab 1: YOUR_FIRSTNAME FAMILYNAME
+# Lab 1: Matěj Podaný
 
 Link to your `Digital-electronics-2` GitHub repository:
 
