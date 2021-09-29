@@ -4,6 +4,6 @@
 
 *Task 01-tools is done*
 
-## 05-leds
+## 02-leds
 
 *Task 02-leds is not done yet*
