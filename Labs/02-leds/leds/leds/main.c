@@ -32,33 +32,29 @@ int main(void)
 {
     // Green LED at port B
     // Set pin as output in Data Direction Register...
-    DDRB = DDRB | (1<<LED_GREEN);
-    // ...and turn LED off in Data Register
-    PORTB = PORTB & ~(1<<LED_GREEN);
+    DDRB = DDRB | (1<<LED_GREEN); // this operations will be always one
+    // ...and turn LED off in Data Register - active high, set low
+    PORTB = PORTB & ~(1<<LED_GREEN); // this operations will be always zero
 
     // Configure the second LED at port C
-	DDRC = DDRC | (1<<OUT_LED); //vystup
+    DDRC = DDRC | (1<<OUT_LED); //setting port C as output // this operations will be always one
+    
+	PORTC = PORTC & ~(1<<OUT_LED); //turning LED on // this operations will be always zero
 	
-	PORTC = PORTC & ~(1<<OUT_LED); //nastavit led nesviti
-
     // Configure Push button at port D and enable internal pull-up resistor
 	
-	DDRD = DDRD & ~(1<<BUTTON);   //dobre zkontrolovano
-	PORTD = PORTD | (1<<BUTTON); //dobre zkontrolovano
+	DDRD = DDRD & ~(1<<BUTTON);   //setting port D as input // this operation is always zero
+	PORTD = PORTD | (1<<BUTTON); //internal pull-up resistor is enabled // this operation is always one
+	
     // Infinite loop
     while (1)
     {
-		
-		PORTB = PORTB | (1<<LED_GREEN);
-		//doplnit ZDE jedna led sviti a druha ne
-		
-
 		// Invert LED in Data Register
 		// PORTB = PORTB xor 0010 0000
-		if(bit_is_clear(PIND, BUTTON)) //toto by melo byt plne funkcni podle ucitele
+		if(bit_is_clear(PIND, BUTTON)) //if button is pushed, this if condition is not skipped
 		{	
-			PORTB = PORTB ^ (1<<LED_GREEN); //dobre zkontrolovano
-			PORTC = PORTC ^ (1<<OUT_LED);  //dobre zkontrolovano
+			PORTB = PORTB ^ (1<<LED_GREEN); // this operation will always inverse value of PORTB
+			PORTC = PORTC ^ (1<<OUT_LED);  // this operation will always inverse value of PORTC
 			
 		}
         
