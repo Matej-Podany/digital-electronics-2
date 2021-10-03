@@ -48,24 +48,24 @@ int main(void)
     {
         // Pause several milliseconds
         _delay_ms(BLINK_DELAY);
-	    // OUT_LED is active except the first time, when the code starts
+        // OUT_LED is active except the first time, when the code starts
 
-	    // Switch off OUT_LED
-	    PORTC = PORTC | (1<<OUT_LED); // active low, set high // this operations will be always one
+        // Switch off OUT_LED
+        PORTC = PORTC | (1<<OUT_LED); // active low, set high // this operations will be always one
         // Switch on LED_GREEN
-	    PORTB = PORTB | (1<<LED_GREEN); // active high, set high // this operations will be always one
+        PORTB = PORTB | (1<<LED_GREEN); // active high, set high // this operations will be always one
 		
-	    // LED_GREEN is active 
-	    // Pause several milliseconds
+        // LED_GREEN is active 
+        // Pause several milliseconds
         _delay_ms(BLINK_DELAY);
-	    // LED_GREEN is active
+        // LED_GREEN is active
 		
-	    // Switch off LED_GREEN
-	    PORTB = PORTB & ~(1<<LED_GREEN); // active high, set low // this operations will be always zero
-	    // Switch on OUT_LED
-	    PORTC = PORTC & ~(1<<OUT_LED); // active low, set low // this operations will be always zero
+        // Switch off LED_GREEN
+        PORTB = PORTB & ~(1<<LED_GREEN); // active high, set low // this operations will be always zero
+        // Switch on OUT_LED
+        PORTC = PORTC & ~(1<<OUT_LED); // active low, set low // this operations will be always zero
 		
-	    // OUT_LED is active
+        // OUT_LED is active
     }
 
     // Will never reach this
@@ -102,8 +102,8 @@ int main(void)
 	    // PORTB = PORTB xor 0010 0000
 	    if(bit_is_clear(PIND, BUTTON)) //if button is pushed, this if condition is not skipped
 	    {	
-		    PORTB = PORTB ^ (1<<LED_GREEN); // this operation will always inverse value of PORTB
-		    PORTC = PORTC ^ (1<<OUT_LED);  // this operation will always inverse value of PORTC
+    	    PORTB = PORTB ^ (1<<LED_GREEN); // this operation will always inverse value of PORTB
+    	    PORTC = PORTC ^ (1<<OUT_LED);  // this operation will always inverse value of PORTC
 			
 	    }
         
