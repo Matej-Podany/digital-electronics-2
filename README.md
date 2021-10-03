@@ -6,4 +6,4 @@
 
 ## 02-leds
 
-*Task 02-leds is not done yet*
+*Task 02-leds is done*
