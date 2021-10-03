@@ -115,4 +115,4 @@ int main(void)
 
 1. Scheme of Knight Rider application, i.e. connection of AVR device, five LEDs, resistors, one push button, and supply voltage. The image can be drawn on a computer or by hand. Always name all components and their values!
 
-   ![Schematic](https://github.com/Matej-Podany/digital-electronics-2/blob/main/Labs/01-tools/images/schematic.jpg "Schematic")
+   ![Schematic](https://github.com/Matej-Podany/digital-electronics-2/blob/main/Labs/02-leds/images/schematic.jpg "Schematic")
