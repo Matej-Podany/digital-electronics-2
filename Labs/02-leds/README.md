@@ -98,14 +98,14 @@ int main(void)
     // Infinite loop
     while (1)
     {
-	    // Invert LED in Data Register
-	    // PORTB = PORTB xor 0010 0000
-	    if(bit_is_clear(PIND, BUTTON)) //if button is pushed, this if condition is not skipped
-	    {	
+        // Invert LED in Data Register
+        // PORTB = PORTB xor 0010 0000
+        if(bit_is_clear(PIND, BUTTON)) //if button is pushed, this if condition is not skipped
+        {	
     	    PORTB = PORTB ^ (1<<LED_GREEN); // this operation will always inverse value of PORTB
     	    PORTC = PORTC ^ (1<<OUT_LED);  // this operation will always inverse value of PORTC
 			
-	    }
+        }
         
     }
 ```
