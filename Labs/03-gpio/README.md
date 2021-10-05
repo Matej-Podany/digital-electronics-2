@@ -5,10 +5,10 @@ Link to your `Digital-electronics-2` GitHub repository:
    [https://github.com/Matej-Podany/digital-electronics-2](https://github.com/Matej-Podany/digital-electronics-2)
 
 ### Preparation
-
+```c
 #include <avr/io.h>
 
-```c
+
 // Function declaration (prototype)
 uint16_t calculate(uint8_t, uint8_t);
 
@@ -44,7 +44,7 @@ int calculate(uint8_t x, uint8_t y)
 | `uint8_t`  | 8 | 0 to 255 | Unsigned 8-bit integer |
 | `int8_t`   | 8 | -128 to 127 | Signed 8-bit integer |
 | `uint16_t` | 16 | 0 to 65535 | Unsigned 16-bit integer |
-| `int16_t`  | 16 | -62768 to 62767 | Signed 16-bit integer |
+| `int16_t`  | 16 | -32768 to 32767 | Signed 16-bit integer |
 | `float`    | 32 | -3.4e+38, ..., 3.4e+38 | Single-precision floating-point |
 | `void`     | 0 or 8 | none | Empty variable or void pointer |
 
