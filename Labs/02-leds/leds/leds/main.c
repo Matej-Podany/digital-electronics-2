@@ -13,7 +13,7 @@
 #define LED_GREEN   PB5     // AVR pin where green LED is connected
 #define BLINK_DELAY 500
 #define OUT_LED     PC0     // external led
-#define BUTTON		PD0
+#define BUTTON		PD0     // external button
 #ifndef F_CPU
 # define F_CPU 16000000     // CPU frequency in Hz required for delay
 #endif

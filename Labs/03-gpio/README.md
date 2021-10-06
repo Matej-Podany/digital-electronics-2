@@ -4,37 +4,6 @@ Link to your `Digital-electronics-2` GitHub repository:
 
    [https://github.com/Matej-Podany/digital-electronics-2](https://github.com/Matej-Podany/digital-electronics-2)
 
-### Preparation
-```c
-#include <avr/io.h>
-
-
-// Function declaration (prototype)
-uint16_t calculate(uint8_t, uint8_t);
-
-int main(void)
-{
-    uint8_t a = 156;
-    uint8_t b = 14;
-    uint16_t c;
-
-    // Function call
-    c = calculate(a, b);
-
-    while (1)
-    {
-    }
-    return 0;
-}
-
-// Function definition (body)
-int calculate(uint8_t x, uint8_t y)
-{
-    uint16_t result;    // result = x^2 + 2xy + y^2
-    result = x*x + 2*x*y + y*y;
-    return result;
-}
-```
 ### Data types in C
 
 1. Complete table.
@@ -52,22 +21,33 @@ int calculate(uint8_t x, uint8_t y)
 ### GPIO library
 
 1. In your words, describe the difference between the declaration and the definition of the function in C.
-   * Function declaration
-   * Function definition
+   * Function declaration means, that we define what type will be this function (void, uint8_t and so on), so if function has output or not. We also define how many or none inputs there will be and also their data types.
+   * Function definition means, that here we define, what our function accually does.
 
 2. Part of the C code listing with syntax highlighting, which toggles LEDs only if push button is pressed. Otherwise, the value of the LEDs does not change. Use function from your GPIO library. Let the push button is connected to port D:
 
 ```c
-    // Configure Push button at port D and enable internal pull-up resistor
-    // WRITE YOUR CODE HERE
+    // Configure the second LED at port C
+    GPIO_config_output(&DDRC, OUT_LED); //setting port C as output // this operations will be always one
+	
+    GPIO_write_low(&PORTC, OUT_LED);; //turning LED on // this operations will be always zero
 
+    // Configure Push button at port D and enable internal pull-up resistor   
+ 
+    GPIO_config_input_pullup(&DDRD, BUTTON); //setting port D as input // this operation is always zero
+	                                         //internal pull-up resistor is enabled // this operation is always one
+	
     // Infinite loop
     while (1)
     {
         // Pause several milliseconds
         _delay_ms(BLINK_DELAY);
-
-        // WRITE YOUR CODE HERE
+        if(GPIO_read(&PIND, BUTTON) == 0)
+		{
+			GPIO_toggle(&DDRB, LED_GREEN);
+			GPIO_toggle(&DDRC, OUT_LED);
+		}
+		
     }
 ```
 
