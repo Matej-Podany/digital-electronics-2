@@ -28,24 +28,24 @@ Link to your `Digital-electronics-2` GitHub repository:
 
 ```c
     // Configure the second LED at port C
-    GPIO_config_output(&DDRC, OUT_LED); //setting port C as output // this operations will be always one
+    GPIO_config_output(&DDRC, OUT_LED); //setting port C as output
 	
-    GPIO_write_low(&PORTC, OUT_LED);; //turning LED on // this operations will be always zero
+    GPIO_write_low(&PORTC, OUT_LED);; //turning LED on
 
     // Configure Push button at port D and enable internal pull-up resistor   
  
-    GPIO_config_input_pullup(&DDRD, BUTTON); //setting port D as input // this operation is always zero
-	                                         //internal pull-up resistor is enabled // this operation is always one
+    GPIO_config_input_pullup(&DDRD, BUTTON); //setting port D as input
+	                                         //internal pull-up resistor is enabled
 	
     // Infinite loop
     while (1)
     {
         // Pause several milliseconds
         _delay_ms(BLINK_DELAY);
-        if(GPIO_read(&PIND, BUTTON) == 0)
+        if(GPIO_read(&PIND, BUTTON) == 0) //if button is pushed, this condition is not skipped
 		{
-			GPIO_toggle(&DDRB, LED_GREEN);
-			GPIO_toggle(&DDRC, OUT_LED);
+			GPIO_toggle(&DDRB, LED_GREEN); //swaping value of PB0
+			GPIO_toggle(&DDRC, OUT_LED);   //swaping value of PC0
 		}
 		
     }
