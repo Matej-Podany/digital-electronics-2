@@ -7,3 +7,7 @@
 ## 02-leds
 
 *Task 02-leds is done*
+
+## 03-gpio
+
+*Task 03-gpio is not done yet*
