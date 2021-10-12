@@ -10,4 +10,8 @@
 
 ## 03-gpio
 
-*Task 03-gpio is not done yet*
+*Task 03-gpio is done*
+
+## 04-interrupts
+
+*Task 04-interrupts is not done yet*
