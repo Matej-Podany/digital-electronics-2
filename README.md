@@ -14,4 +14,8 @@
 
 ## 04-interrupts
 
-*Task 04-interrupts is not done yet*
+*Task 04-interrupts is done*
+
+## 05-segment
+
+*Task 05-segment is not done yet*
