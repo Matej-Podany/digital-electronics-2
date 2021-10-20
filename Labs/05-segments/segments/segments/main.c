@@ -34,14 +34,15 @@ int main(void)
 
     // Configure 16-bit Timer/Counter1 for Decimal counter
     // Set the overflow prescaler to 262 ms and enable interrupt
-   //TIM1_overflow_262ms();
-   //TIM1_overflow_interrupt_enable();
-   //
-   //TIM0_overflow_4ms();
-   //TIM0_overflow_interrupt_enable();
-//
-    //// Enables interrupts by setting the global interrupt mask
-    //sei();
+   TIM1_overflow_262ms();
+   TIM1_overflow_interrupt_enable();
+   
+   TIM0_overflow_4ms();
+   TIM0_overflow_interrupt_enable();
+   
+
+    // Enables interrupts by setting the global interrupt mask
+    sei();
 
     // Infinite loop
     while (1)
@@ -59,25 +60,25 @@ int main(void)
  * Function: Timer/Counter1 overflow interrupt
  * Purpose:  Increment decimal counter value and display it on SSD.
  **********************************************************************/
-//ISR(TIMER1_OVF_vect)
-//{
-    ////counting on one display (0) from 0 to 9
-	//cnt0++;
-	//if (cnt0 > 9)
-	//{
-		//cnt0=0;
-	//}
-    //SEG_update_shift_regs(cnt0, 0);
-//}
-//
-//ISR(TIMER0_OVF_vect)
-//{
-    //// timer for 1 display 4*4ms <= 16 ms for human eye
-	//static uint8_t pos = 0;  // This line will only run the first time
-	//pos++;
-	//if (pos > 3)
-	//{
-		//pos=0;
-	//}
-	//SEG_update_shift_regs(pos, 0);
-//}
+ISR(TIMER1_OVF_vect)
+{
+    //counting on one display (0) from 0 to 9 every 262 ms
+	cnt0++;
+	if (cnt0 > 9)
+	{
+		cnt0=0;
+	}
+    SEG_update_shift_regs(cnt0, 0);
+}
+
+ISR(TIMER0_OVF_vect)
+{
+    // timer for 1 display 4*4ms <= 16 ms for human eye
+	static uint8_t pos = 0;  // This line will only run the first time
+	pos++;
+	if (pos > 3)
+	{
+		pos=0;
+	}
+	SEG_update_shift_regs(pos, 0);
+}

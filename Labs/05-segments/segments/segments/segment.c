@@ -112,17 +112,17 @@ void SEG_update_shift_regs(uint8_t segments, uint8_t position)
 
     // Loop through the 2nd byte (position)
     // p3 p2 p1 p0 . . . . (active high values)
-    for (position = 0; position < 8; position++)
+    for (bit_number = 0; bit_number < 8; bit_number++)
     {
         // Test LSB of "position" by & (faster) or % (slower) and... 
         // ...output DATA value
         if ((position & 0b00000001) == 0)
         {
-	        GPIO_write_high(&PORTB, SEG_DATA);
+	        GPIO_write_low(&PORTB, SEG_DATA);
         }
         else
 		{
-			GPIO_write_low(&PORTB, SEG_DATA);
+			GPIO_write_high(&PORTB, SEG_DATA);
 		}
 		
         // Wait 1 us
