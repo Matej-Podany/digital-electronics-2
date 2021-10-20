@@ -16,6 +16,6 @@
 
 *Task 04-interrupts is done*
 
-## 05-segment
+## 05-segments
 
-*Task 05-segment is not done yet*
+*Task 05-segments is not done yet*
