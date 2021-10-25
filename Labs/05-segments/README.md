@@ -20,8 +20,23 @@ Link to your `Digital-electronics-2` GitHub repository:
  **********************************************************************/
 ISR(TIMER1_OVF_vect)
 {
-    // WRITE YOUR CODE HERE
-
+    //counting values for two SSD from 00 to 59 almost every second (1048 ms, 4.8 % deviation)
+	static uint8_t noc = 0; // This line will only run the first time
+	noc++;
+	if (noc >  3) // every second will count up
+	{
+		noc=0;
+		cnt0++;
+		if (cnt0 > 9)
+		{
+			cnt0=0;
+			cnt1++;
+		}
+		if (cnt1 > 5)
+		{
+			cnt1=0;
+		}
+	}
 }
 ```
 
@@ -32,9 +47,21 @@ ISR(TIMER1_OVF_vect)
  **********************************************************************/
 ISR(TIMER0_OVF_vect)
 {
-    static uint8_t pos = 0;
-
-    // WRITE YOUR CODE HERE
+    // timer for 2 displays 2*8ms <= 16 ms for human eye
+	static uint8_t pos = 0;  // This line will only run the first time
+	pos++;
+	if (pos > 1) // every 8 ms will update one of the displays
+	{
+		if (pos == 2)
+		{
+			SEG_update_shift_regs(cnt0, 0);
+		}
+		if (pos == 4)
+		{
+			pos=0;
+			SEG_update_shift_regs(cnt1, 1);
+		}
+	}
 
 }
 ```

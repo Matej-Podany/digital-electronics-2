@@ -70,10 +70,12 @@ void SEG_update_shift_regs(uint8_t segments, uint8_t position);
 
 /* SEG_clear */
 // turn off all displays
+void SEG_clear(void);
 
 
 /* SEG_clk_2us */
 // set clock's period to 2 us
+void SEG_clk_2us(void);
 
 /** @} */
 

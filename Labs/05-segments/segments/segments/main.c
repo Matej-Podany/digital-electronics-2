@@ -16,6 +16,7 @@
 #include "segment.h"        // Seven-segment display library for AVR-GCC
 
 volatile uint8_t cnt0 = 0;
+volatile uint8_t cnt1 = 0;
 
 /* Function definitions ----------------------------------------------*/
 /**********************************************************************
@@ -58,27 +59,47 @@ int main(void)
 /* Interrupt service routines ----------------------------------------*/
 /**********************************************************************
  * Function: Timer/Counter1 overflow interrupt
- * Purpose:  Increment decimal counter value and display it on SSD.
+ * Purpose:  Increment counter value from 00 to 59.
  **********************************************************************/
 ISR(TIMER1_OVF_vect)
 {
-    //counting on one display (0) from 0 to 9 every 262 ms
-	cnt0++;
-	if (cnt0 > 9)
+    //counting values for two SSD from 00 to 59 almost every second (1048 ms, 4.8 % deviation)
+	static uint8_t noc = 0; // This line will only run the first time
+	noc++;
+	if (noc >  3) // every second will count up
 	{
-		cnt0=0;
+		noc=0;
+		cnt0++;
+		if (cnt0 > 9)
+		{
+			cnt0=0;
+			cnt1++;
+		}
+		if (cnt1 > 5)
+		{
+			cnt1=0;
+		}
 	}
-    SEG_update_shift_regs(cnt0, 0);
 }
-
+/**********************************************************************
+ * Function: Timer/Counter0 overflow interrupt
+ * Purpose:  Display tens and units of a counter at SSD.
+ **********************************************************************/
 ISR(TIMER0_OVF_vect)
 {
-    // timer for 1 display 4*4ms <= 16 ms for human eye
+    // timer for 2 displays 2*8ms <= 16 ms for human eye
 	static uint8_t pos = 0;  // This line will only run the first time
 	pos++;
-	if (pos > 3)
+	if (pos > 1) // every 8 ms will update one of the displays
 	{
-		pos=0;
+		if (pos == 2)
+		{
+			SEG_update_shift_regs(cnt0, 0);
+		}
+		if (pos == 4)
+		{
+			pos=0;
+			SEG_update_shift_regs(cnt1, 1);
+		}
 	}
-	SEG_update_shift_regs(pos, 0);
 }
