@@ -18,4 +18,8 @@
 
 ## 05-segments
 
-*Task 05-segments is not done yet*
+*Task 05-segments is done*
+
+## 06-lcd
+
+*Task 06-lcd is not done yet*
