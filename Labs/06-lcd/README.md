@@ -8,7 +8,7 @@ Link to your `Digital-electronics-2` GitHub repository:
 ### LCD display module
 
 1. In your words, describe what ASCII table is.
-   * ASCII
+   * ASCII je tabulka znaků a písmen, které jsou uloženy na konkrétních pozicích paměti HD44780. Pokud některý ze znaků chceme vyvolat u jakéhokoliv displeje různých velikostí či výrobců a platí, že je ovládán modulem HD44780, tak vždy bude adresa jednoho symbolu stejná. Také máme možnost uložit 8 vlastně nadefinovaných znaků, které se však ukládají v paměti RAM a je potřeba je opět zapsat při každém zapnutí něbo je lze přeposovat během zapnutí displeje.
 
 2. (Hand-drawn) picture of time signals between ATmega328P and LCD keypad shield (HD44780 driver) when transmitting three character data `De2`.
 
@@ -19,7 +19,7 @@ Link to your `Digital-electronics-2` GitHub repository:
 
 1. Flowchart figure for `TIMER2_OVF_vect` interrupt service routine which overflows every 16&nbsp;ms but it updates the stopwatch LCD approximately every 100&nbsp;ms (6 x 16&nbsp;ms = 100&nbsp;ms). Display tenths of a second and seconds `00:seconds.tenths`. Let the stopwatch counts from `00:00.0` to `00:59.9` and then starts again. The image can be drawn on a computer or by hand. Use clear descriptions of the individual steps of the algorithms.
 
-   ![Flowchart](https://github.com/Matej-Podany/digital-electronics-2/blob/main/Labs/06-lcd/images/flowchart.jpg "Flowchart")
+   ![Flowchart](https://github.com/Matej-Podany/digital-electronics-2/blob/main/Labs/06-lcd/images/flowchart.png "Flowchart")
 
 
 ### Custom characters
@@ -28,9 +28,24 @@ Link to your `Digital-electronics-2` GitHub repository:
 
 ```c
 /* Variables ---------------------------------------------------------*/
-// Custom character definition
+// Custom character definition - two symbols empty and full battery
 uint8_t customChar[16] = {
-    // WRITE YOUR CODE HERE
+    0b01110,
+	0b01110,
+	0b11111,
+	0b10001,
+	0b10001,
+	0b10001,
+	0b10001,
+	0b11111,
+	0b01110,
+	0b01110,
+	0b11111,
+	0b11111,
+	0b11111,
+	0b11111,
+	0b11111,
+	0b11111
 
 };
 ```
