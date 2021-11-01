@@ -22,4 +22,4 @@
 
 ## 06-lcd
 
-*Task 06-lcd is not done yet*
+*Task 06-lcd is done*
