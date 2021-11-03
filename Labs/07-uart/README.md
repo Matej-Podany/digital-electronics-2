@@ -11,12 +11,12 @@ Link to this file in your GitHub repository:
 
    | **Push button** | **PC0[A0] voltage** | **ADC value (calculated)** | **ADC value (measured)** |
    | :-: | :-: | :-: | :-: |
-   | Right  | 0&nbsp;V | 0   |  |
-   | Up     | 0.495&nbsp;V | 101 |  |
-   | Down   | 1.202&nbsp;V | 246 |  |
-   | Left   | 1.970&nbsp;V | 403 |  |
-   | Select | 3.182&nbsp;V | 651 |  |
-   | none   | 5&nbsp;V | 1023 |  |
+   | Right  | 0&nbsp;V | 0 | 0 |
+   | Up     | 0.495&nbsp;V | 101 | 99 |
+   | Down   | 1.202&nbsp;V | 246 | 256 |
+   | Left   | 1.970&nbsp;V | 403 | 409 |
+   | Select | 3.182&nbsp;V | 651 | 639 |
+   | none   | 5&nbsp;V | 1023 | 1023 |
 
 2. Code listing of ACD interrupt service routine for sending data to the LCD/UART and identification of the pressed button. Always use syntax highlighting and meaningful comments:
 
@@ -32,9 +32,33 @@ ISR(ADC_vect)
 
     value = ADC;                  // Copy ADC result to 16-bit variable
     itoa(value, lcd_string, 10);  // Convert decimal value to string
-
-    // WRITE YOUR CODE HERE
-
+	
+    lcd_gotoxy(8,0);
+	lcd_puts("    ");
+	lcd_gotoxy(8,0);
+	lcd_puts(lcd_string);
+	
+	if (value <1022)
+	{
+		uart_puts("\033[4;32m");        // 4: underline style; 32: green foreground
+	}
+	else
+		{
+			uart_puts("\033[0m");           // 0: reset all attributes
+		}
+	uart_puts(lcd_string);
+	
+	char lcd_string_hexa[3] = "000";
+	itoa(value, lcd_string_hexa, 16);
+	
+	lcd_gotoxy(13,0);
+	lcd_puts("   ");
+	lcd_gotoxy(13,0);
+	lcd_puts(lcd_string_hexa);
+	
+	uart_puts(lcd_string_hexa);
+	
+	uart_puts("\r\n");
 }
 ```
 
