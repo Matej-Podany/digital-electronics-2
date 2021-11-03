@@ -23,3 +23,7 @@
 ## 06-lcd
 
 *Task 06-lcd is done*
+
+## 07-uart
+
+*Task 07-uart is done*
