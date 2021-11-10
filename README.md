@@ -27,3 +27,7 @@
 ## 07-uart
 
 *Task 07-uart is done*
+
+## 08-i2c
+
+*Task 08-i2c is done*
