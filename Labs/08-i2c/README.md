@@ -72,11 +72,11 @@ ISR(TIMER1_OVF_vect)
     // A module connected to the bus was found
     case STATE_ACK:
         // Send info about active I2C slave to UART and move to IDLE
-	    uart_puts("Found an address: 0x");
-	    itoa(addr, uart_string, 16);
-	    uart_puts(uart_string);
-	    uart_puts("\r\n");
-	    state = STATE_IDLE;
+        uart_puts("Found an address: 0x");
+        itoa(addr, uart_string, 16);
+        uart_puts(uart_string);
+        uart_puts("\r\n");
+        state = STATE_IDLE;
         break;
 
     // If something unexpected happens then move to IDLE
