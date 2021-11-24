@@ -404,7 +404,7 @@ int main(void)
  288:	8c e0       	ldi	r24, 0x0C	; 12
  28a:	0e 94 ee 00 	call	0x1dc	; 0x1dc <lcd_init>
 
-    // Put string(s) at LCD display
+    // Put string at LCD display
     lcd_gotoxy(0, 1);
  28e:	61 e0       	ldi	r22, 0x01	; 1
  290:	80 e0       	ldi	r24, 0x00	; 0
@@ -448,16 +448,14 @@ int main(void)
  2bc:	80 e8       	ldi	r24, 0x80	; 128
  2be:	0e 94 c5 00 	call	0x18a	; 0x18a <lcd_command>
 	
-	// Display first custom character
-	
-    // Configure 8-bit Timer/Counter2 for Stopwatch
-    // Set the overflow prescaler to 16 ms and enable interrupt
-	TIM0_overflow_4ms();
+    // Configure 8-bit Timer/Counter0 for lcd updates
+    // Set the overflow prescaler to 262 ms and enable interrupt
+	TIM0_overflow_262ms();
  2c2:	85 b5       	in	r24, 0x25	; 37
- 2c4:	89 7f       	andi	r24, 0xF9	; 249
+ 2c4:	8b 7f       	andi	r24, 0xFB	; 251
  2c6:	85 bd       	out	0x25, r24	; 37
  2c8:	85 b5       	in	r24, 0x25	; 37
- 2ca:	81 60       	ori	r24, 0x01	; 1
+ 2ca:	83 60       	ori	r24, 0x03	; 3
  2cc:	85 bd       	out	0x25, r24	; 37
 	TIM0_overflow_interrupt_enable();
  2ce:	ee e6       	ldi	r30, 0x6E	; 110
@@ -472,9 +470,9 @@ int main(void)
  2da:	ff cf       	rjmp	.-2      	; 0x2da <main+0x52>
 
 000002dc <__vector_16>:
- * Function: Timer/Counter2 overflow interrupt
- * Purpose:  Update the stopwatch on LCD display every sixth overflow,
- *           ie approximately every 100 ms (6 x 16 ms = 100 ms).
+ * Function: Timer/Counter0 overflow interrupt
+ * Purpose:  Update LCD display every overflow.
+ *           
  **********************************************************************/
 ISR(TIMER0_OVF_vect)
 {
