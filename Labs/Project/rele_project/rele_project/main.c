@@ -15,6 +15,17 @@
 #include "timer.h"          // Timer library for AVR-GCC
 #include "lcd.h"            // Peter Fleury's LCD library
 #include <stdlib.h>         // C library. Needed for conversion function
+#include <util/delay.h>
+#include "gpio.h"
+#include "lcd_definitions.h"
+#include "uart.h"
+#define ULTRA_ECHO PD3
+#define ULTRA_TRIGGER PD2 
+#define F_CPU 16000000
+
+static uint8_t counting = 0;
+static uint16_t pulse_length = 0;
+char uart_string[16] = "                ";
 
 /* Variables ---------------------------------------------------------*/
 // Custom character definition using https://omerk.github.io/lcdchargen/
@@ -88,17 +99,38 @@ int main(void)
 	
     // Configure 8-bit Timer/Counter0 for lcd updates
     // Set the overflow prescaler to 262 ms and enable interrupt
-	TIM0_overflow_262ms();
+	TIM0_overflow_4ms();
 	TIM0_overflow_interrupt_enable();
+	
+	//TIM2_overflow_262ms();
+	//TIM2_overflow_interrupt_enable();
+	
+	// enable external interrupt to any logical change (datasheet page 80)
+	//EIMSK |= (1<<INT0);
+	//EICRA |= (1<<ISC00);
+	//EICRA &= ~(1<<ISC01);
 
     // Enables interrupts by setting the global interrupt mask
     sei();
+	
+	//starting uart communication
+	uart_init(UART_BAUD_SELECT(9600, 16000000UL));
+	
+	// 
+	GPIO_config_output(&DDRD, ULTRA_TRIGGER);
+	GPIO_write_low(&PORTD, ULTRA_TRIGGER);
+	
+	GPIO_config_input_nopull(&DDRD, ULTRA_ECHO);
+	GPIO_config_output(&DDRB, PB5);
 
     // Infinite loop
     while (1)
     {
-        /* Empty loop. All subsequent operations are performed exclusively 
-         * inside interrupt service routines ISRs */
+        uart_puts("while is working/r/n");
+		GPIO_write_high(&DDRD, ULTRA_TRIGGER);
+        _delay_us(10);
+        GPIO_write_low(&DDRD, ULTRA_TRIGGER);
+		
     }
 
     // Will never reach this
@@ -113,11 +145,36 @@ int main(void)
  **********************************************************************/
 ISR(TIMER0_OVF_vect)
 {
-    lcd_gotoxy(5,1);
+    uart_puts("TIM0 disp ovrf/r/n");
+	lcd_gotoxy(5,1);
 	lcd_puts("2cm");
     //itoa(tens, lcd_string_tens, 10);
 	lcd_gotoxy(15,1);
     lcd_putc(3);
 	lcd_gotoxy(15,0);
 	lcd_putc(4);
+	
+}
+
+ISR(INT0_vect)
+{
+	uart_puts("inside INT0/r/n");
+	if (counting == 0)
+	{
+		counting = 1;
+		uart_puts("start/r/n");
+		TIM1_overflow_4ms();
+	}
+	else if (counting == 1)
+	{
+		TIM1_stop();
+		pulse_length = TCNT1;
+		counting = 0;
+		itoa(pulse_length, uart_string, 10);
+		uart_puts(uart_string);
+		uart_puts("/r/n");
+		TCNT1 = 0;
+	}
+	
+	
 }
