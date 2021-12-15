@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name ArduinoLCD)(type Legacy)(uri /home/ondra/2021Z/DE2/DE2-Project/Schema/arduino_lcd.lib)(options "")(descr ""))
+)
