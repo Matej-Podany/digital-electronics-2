@@ -1,7 +1,7 @@
 /**
  * @file platform.h
  * @author Jan Barto� (you@domain.com)
- * @brief 
+ * @brief Project abstraction layer
  * @version 0.1
  * @date 2021-12-08
  * 
@@ -16,13 +16,14 @@
 /* Includes ----------------------------------------------------------*/
 #include <avr/io.h>         // AVR device-specific IO definitions
 #include <avr/interrupt.h>  // Interrupts standard C library for AVR-GCC
+#include <stdlib.h>         // C library. Needed for conversion function
+#include <util/delay.h>		// Library for pausing process for specific time
+
 #include "timer.h"          // Timer library for AVR-GCC
 #include "lcd.h"            // Peter Fleury's LCD library
-#include <stdlib.h>         // C library. Needed for conversion function
-#include <util/delay.h>
-#include "gpio.h"
-#include "lcd_definitions.h"
-#include "uart.h"
+#include "gpio.h"			// GPIO manipulation library
+#include "lcd_definitions.h"	// Definitions for lcd.h
+#include "uart.h"			// Library for using UART interface
 
 #ifndef LIBRARY_PLATFORM
 #define LIBRARY_PLATFORM
@@ -85,5 +86,11 @@ void pump_state_control();
  */
 void is_raining(uint16_t length);
 
+
+/**
+ * @brief Send log message to uart
+ * 
+ */
+void LOG(const char *string);
 
 #endif // LIBRARY_PLATFORM
